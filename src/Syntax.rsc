@@ -33,13 +33,13 @@ syntax Expr
   | Str \ "true" \ "false" \ "if" \ "else"
   | Int
   | Bool
-  | left Expr "||" Expr
-  > left Expr "&&" Expr
-  > left Expr ("==" | "!=") Expr
-  > left Expr ("\>" | "\>=" | "\<" | "\<=") Expr
-  > left Expr ("+" | "-") Expr
+  | left "!" Expr
   > left Expr ("*" | "/") Expr
-  > left "!" Expr
+  > left Expr ("+" | "-") Expr
+  > left Expr ("\>" | "\>=" | "\<" | "\<=") Expr
+  > left Expr ("==" | "!=") Expr
+  > left Expr "&&" Expr
+  > left Expr "||" Expr
   | "(" Expr ")"
   ;
 
