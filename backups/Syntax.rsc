@@ -23,32 +23,34 @@ syntax Question
 // and use C/Java style precedence rules (look it up on the internet)
 syntax Expr 
   = Id \ "true" \ "false" \ "if" \ "else" // true/false are reserved keywords.
-  | Str \ "true" \ "false" \ "if" \ "else"
-  | Int
-  | Bool
-  | left Expr "||" Expr
-  > left Expr "&&" Expr
-  > left Expr ("==" | "!=") Expr
-  > left Expr ("\>" | "\>=" | "\<" | "\<=") Expr
-  > left Expr ("+" | "-") Expr
-  > left Expr ("*" | "/") Expr
-  > left "!" Expr
+  | Term (("+" | "-") Term)*
+  | left Expr BoolOp Expr
   | "(" Expr ")"
+  ;
+
+syntax Term
+  = Factor (("*" | "/") Factor)*
+  ;
+  
+syntax Factor
+  = Int
+  | "(" Expr ")"
+  | Id
   ;
 
 syntax Type
   = "boolean"
   | "integer"
-  | "string"
-  ;
+  ;  
+  
+lexical BoolOp
+  = "&&" | "||" | "!" | "\>" | "\<" | "\<=" | "\>=" | "==" | "!=";
 
 lexical Str 
   = [\"] ![\"]* [\"];
 
 lexical Int 
-  = [\-]?[1-9][0-9]*
-  | [0]
-  ;
+  = "-"?[1-9][0-9]*;
 
 lexical Bool 
   = "true"

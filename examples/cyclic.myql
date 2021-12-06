@@ -14,11 +14,13 @@ form taxOfficeExample {
       valueResidue: integer = 
         ((sellingPrice - privateDebt) * 2)
   }
-
-  if (privateDebt > 0) {
+  
+  
+  if (privateDebt > -45) {
     "Did you sell a house in 2010?"
        hasSoldHouse: boolean
   }
     
+  
 
 }

@@ -1,0 +1,18 @@
+form taxOfficeExample { 
+  "Did you buy a house in 2010?"
+    hasBoughtHouse: boolean
+    
+  "Did you enter a loan?"
+    hasMaintLoan: boolean
+    
+  "HOW MANY TIME"
+  	times: integer = 3  + (1 * 4)
+  	
+  "Waht is your name"
+  	name: string
+  
+  if (true) {
+  
+  }
+  
+}
