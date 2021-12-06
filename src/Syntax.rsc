@@ -31,11 +31,11 @@ syntax ElsePart
   = @Foldable "else" "{" Question* "}"
   ;
 
-// Operator precedence define the following way (source: https://en.cppreference.com/w/c/language/operator_precedence)
+// Operator precedence defined the following way (source: https://en.cppreference.com/w/c/language/operator_precedence)
 // ! > (*, /) > (+, -) > (>, >=, <, <=) > (==, !=), > && > ||
-// All operators are left associative
-// Expressions can be enclosed in brackets to nest them
-// The literals of an Expression can be: Identifiers, Strings, Integers and Booleans
+// All operators are left associative.
+// Expressions can be enclosed in brackets to nest them.
+// The literals of an Expression can be: Identifiers, Strings, Integers or Booleans.
 syntax Expr 
   = Id \ "true" \ "false" \ "if" \ "else" // true/false/if/else are reserved keywords.
   | Str \ "true" \ "false" \ "if" \ "else"
@@ -73,6 +73,3 @@ lexical Bool
   = "true"
   | "false"
   ;
-
-
-
