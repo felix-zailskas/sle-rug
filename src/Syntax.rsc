@@ -8,15 +8,22 @@ extend lang::std::Id;
  */
 
 start syntax Form 
-  = "form" Id "{" Question* "}"; 
+  = @Foldable "form" Id "{" Question* "}"; 
 
 // TODO: question, computed question, block, if-then-else, if-then
 syntax Question
   = Str Id ":" Type // Question
   | Str Id ":" Type "=" Expr // computed Question
-  | "if" "(" Expr ")" "{" Question* "}" // if question
-  | "if" "(" Expr ")" "{" Question* "}" "else" "{" Question* "}" // if-else Question
-  ; 
+  | IfPart ElsePart?
+  ;
+
+syntax IfPart
+  = @Foldable "if" "(" Expr ")" "{" Question* "}" // if question
+  ;
+
+syntax ElsePart
+  = @Foldable "else" "{" Question* "}" // if-else Question 
+  ;
 
 // TODO: +, -, *, /, &&, ||, !, >, <, <=, >=, ==, !=, literals (bool, int, str)
 // Think about disambiguation using priorities and associativity
