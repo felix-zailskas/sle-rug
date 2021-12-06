@@ -7,10 +7,15 @@ extend lang::std::Id;
  * Concrete syntax of QL
  */
 
+// Forms are a collection of questions bound to an identifier.
 start syntax Form 
   = @Foldable "form" Id "{" Question* "}"; 
 
-// TODO: question, computed question, block, if-then-else, if-then
+// A question is a String bound to an identifier.
+// Every question has a data type associated with it.
+// Expressions can be assigned to the question's identifier
+// and they can also be enclosed in code blocks.
+// Furthermore, questions support if-else statements.
 syntax Question
   = Str Id ":" Type // Question
   | Str Id ":" Type "=" Expr // computed Question
@@ -26,11 +31,13 @@ syntax ElsePart
   = @Foldable "else" "{" Question* "}"
   ;
 
-// TODO: +, -, *, /, &&, ||, !, >, <, <=, >=, ==, !=, literals (bool, int, str)
-// Think about disambiguation using priorities and associativity
-// and use C/Java style precedence rules (look it up on the internet)
+// Operator precedence define the following way (source: https://en.cppreference.com/w/c/language/operator_precedence)
+// ! > (*, /) > (+, -) > (>, >=, <, <=) > (==, !=), > && > ||
+// All operators are left associative
+// Expressions can be enclosed in brackets to nest them
+// The literals of an Expression can be: Identifiers, Strings, Integers and Booleans
 syntax Expr 
-  = Id \ "true" \ "false" \ "if" \ "else" // true/false are reserved keywords.
+  = Id \ "true" \ "false" \ "if" \ "else" // true/false/if/else are reserved keywords.
   | Str \ "true" \ "false" \ "if" \ "else"
   | Int
   | Bool
@@ -44,20 +51,24 @@ syntax Expr
   | "(" Expr ")"
   ;
 
+// Data types are Strings, Integers, Booleans
 syntax Type
   = "boolean"
   | "integer"
   | "string"
   ;
 
+// A string is anything enclosed in ""
 lexical Str 
   = [\"] ![\"]* [\"];
 
+// Integers can be positive, negative or zero
 lexical Int 
   = [\-]?[1-9][0-9]*
   | [0]
   ;
 
+// A boolean is true or false
 lexical Bool 
   = "true"
   | "false"
