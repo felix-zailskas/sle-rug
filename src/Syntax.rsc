@@ -14,15 +14,16 @@ start syntax Form
 syntax Question
   = Str Id ":" Type // Question
   | Str Id ":" Type "=" Expr // computed Question
-  | IfPart ElsePart?
+  | @Foldable "{" Question* "}" // block
+  | IfPart ElsePart? // if and if-else
   ;
 
 syntax IfPart
-  = @Foldable "if" "(" Expr ")" "{" Question* "}" // if question
+  = @Foldable "if" "(" Expr ")" "{" Question* "}"
   ;
 
 syntax ElsePart
-  = @Foldable "else" "{" Question* "}" // if-else Question 
+  = @Foldable "else" "{" Question* "}"
   ;
 
 // TODO: +, -, *, /, &&, ||, !, >, <, <=, >=, ==, !=, literals (bool, int, str)
