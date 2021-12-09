@@ -15,7 +15,8 @@ start syntax Form
 // Every question has a data type associated with it.
 // Expressions can be assigned to the question's identifier
 // and they can also be enclosed in code blocks.
-// Furthermore, questions support if-else statements.
+// Furthermore, the display of questions can be declared
+// conditionally in if-else statements.
 syntax Question
   = Str Id ":" Type // Question
   | Str Id ":" Type "=" Expr // computed Question
@@ -38,8 +39,8 @@ syntax ElsePart
 // The literals of an Expression can be: Identifiers, Strings, Integers or Booleans.
 syntax Expr 
   = Id \ "true" \ "false" \ "if" \ "else" // true/false/if/else are reserved keywords.
-  | Str \ "true" \ "false" \ "if" \ "else"
-  | Int
+  | Str
+  | Int
   | Bool
   | left "!" Expr
   > left Expr ("*" | "/") Expr
@@ -48,7 +49,7 @@ syntax Expr
   > left Expr ("==" | "!=") Expr
   > left Expr "&&" Expr
   > left Expr "||" Expr
-  | "(" Expr ")"
+  | bracket "(" Expr ")"
   ;
 
 // Data types are Strings, Integers, Booleans
@@ -65,7 +66,7 @@ lexical Str
 // Integers can be positive, negative or zero
 lexical Int 
   = [\-]?[1-9][0-9]*
-  | [0]
+  | [0]
   ;
 
 // A boolean is true or false
